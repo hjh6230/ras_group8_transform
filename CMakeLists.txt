@@ -5,6 +5,10 @@ find_package(catkin REQUIRED
   COMPONENTS
   roscpp
   phidgets
+  tf
+  sensor_msgs
+  message_filters
+  laser_geometry
 )
 
 catkin_package(
@@ -14,6 +18,10 @@ catkin_package(
   CATKIN_DEPENDS
     roscpp
     phidgets
+    tf
+    sensor_msgs
+    message_filters
+    laser_geometry
 
 # DEPENDS
 )
@@ -52,3 +60,7 @@ install(
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.hpp"
 )
+
+
+add_executable(scan2cloud src/ScantoCloud.cpp)
+target_link_libraries(scan2cloud ${catkin_LIBRARIES})
