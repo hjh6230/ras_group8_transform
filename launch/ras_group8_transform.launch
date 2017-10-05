@@ -1,8 +1,17 @@
 <launch>
 
+	<!-- lunch the rplidar -->
+
+  <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+  
   <!-- Launch RAS Group 8 LidarTransform Node -->
   <node pkg="ras_group8_transform" type="ras_group8_transform" name="ras_group8_lidar_transform" output="screen">
     <rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
   </node>
+  <node pkg="ras_group8_transform" type="scan2cloud" name="ras_scan_data_cloud" output="screen">
+  	<rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
+  </node>
+
+
 
 </launch>

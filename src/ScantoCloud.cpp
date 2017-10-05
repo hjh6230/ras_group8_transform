@@ -19,7 +19,7 @@ public:
   LaserScanToPointCloud(ros::NodeHandle n) : 
     n_(n),
     laser_sub_(n_, "scan", 10),
-    laser_notifier_(laser_sub_,listener_, "robot", 10)
+    laser_notifier_(laser_sub_,listener_, "laser", 10)
   {
     laser_notifier_.registerCallback(
       boost::bind(&LaserScanToPointCloud::scanCallback, this, _1));
@@ -33,7 +33,8 @@ public:
     try
     {
         projector_.transformLaserScanToPointCloud(
-          "robot",*scan_in, cloud,listener_);
+          "laser",*scan_in, cloud,listener_);
+        //ROS_INFO("try get cloud.");
     }
     catch (tf::TransformException& e)
     {

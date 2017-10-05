@@ -16,7 +16,7 @@ int main(int argc, char** argv)
    
  ros::Rate rate(10.0);
  while (nodeHandle.ok()){
-   transform.setOrigin( tf::Vector3(5.0, 0.0, 0.0) );//need to measure the true distance
+   transform.setOrigin( tf::Vector3(0.1, 0.0, 0.0) );//need to measure the true distance
    transform.setRotation( tf::Quaternion(0, 0, 0, 1) );
    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "robot", "laser"));
    rate.sleep();
