@@ -2,15 +2,21 @@
 
 	<!-- lunch the rplidar -->
 
-  <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+  #<include file="$(find rplidar_ros)/launch/rplidar.launch"/>
   
   <!-- Launch RAS Group 8 LidarTransform Node -->
-  <node pkg="ras_group8_transform" type="ras_group8_transform" name="ras_group8_lidar_transform" output="screen">
+  <node pkg="ras_group8_transform" type="lidartrans" name="ras_group8_lidar_transform" output="screen">
     <rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
   </node>
-  <node pkg="ras_group8_transform" type="scan2cloud" name="ras_scan_data_cloud" output="screen">
-  	<rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
+  <node pkg="ras_group8_transform" type="cameratrans" name="ras_group8_camera_transform" output="screen">
+    <rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
   </node>
+  <node pkg="ras_group8_transform" type="armtrans" name="ras_group8_arm_transform" output="screen">
+    <rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
+  </node>
+  # <node pkg="ras_group8_transform" type="scan2cloud" name="ras_scan_data_cloud" output="screen">
+  # 	<rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
+  # </node>
 
 
 
