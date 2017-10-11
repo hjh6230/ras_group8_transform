@@ -17,8 +17,9 @@ int main(int argc, char** argv)
  ros::Rate rate(10.0);
  while (nodeHandle.ok()){
    transform.setOrigin( tf::Vector3(0.03, 0.0, 0.08) );//need to measure the true distance
-   transform.setRotation( tf::Quaternion(tf::Vector3(0,1,0),-30/180*3.1415926) );
-   br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "robot", "camera"));
+   transform.setRotation( tf::createQuaternionFromRPY(0,0.5236,0));
+
+   br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "robot", "camera_link"));
    rate.sleep();
  }
  return 0;
