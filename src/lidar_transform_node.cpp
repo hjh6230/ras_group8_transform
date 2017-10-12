@@ -18,7 +18,7 @@ int main(int argc, char** argv)
  while (nodeHandle.ok()){
    transform.setOrigin( tf::Vector3(-0.087, 0.0, 0.05) );//need to measure the true distance
    
-   transform.setRotation( tf::Quaternion(0, 0, 0, 1) );
+   transform.setRotation( tf::createQuaternionFromRPY(0,3.14159,0));
    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "robot", "laser"));
    rate.sleep();
  }
