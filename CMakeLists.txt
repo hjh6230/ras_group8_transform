@@ -65,6 +65,9 @@ install(
 add_executable(scan2cloud src/ScantoCloud.cpp)
 target_link_libraries(scan2cloud ${catkin_LIBRARIES})
 
+add_executable(Obj2Arm src/obj2Arm.cpp)
+target_link_libraries(Obj2Arm ${catkin_LIBRARIES})
+
 add_executable(cameratrans
   src/camera_transform_node.cpp
   src/LidarTransform.cpp
