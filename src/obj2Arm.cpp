@@ -18,20 +18,24 @@ public:
 
   TransformPoint(ros::NodeHandle n) : 
     n_(n),
-    point_sub_(n_, "target/camera_frame", 10),
-    point_notifier_(point_sub_,listener_, "camera_link", 10)
+    point_sub_(n_, "target/camera_frame", 1),
+    point_notifier_(point_sub_,listener_, "/camera_depth_optical_frame", 1)
   {
     point_notifier_.registerCallback(
       boost::bind(&TransformPoint::ptCallback, this, _1));
-    point_notifier_.setTolerance(ros::Duration(0.01));
-    point_pub_ = n_.advertise<geometry_msgs::Vector3>("/arm/target",10);
+    point_notifier_.setTolerance(ros::Duration(1.0));
+    point_pub_ = n_.advertise<geometry_msgs::Vector3>("/arm/cartesian_up",1);
   }
 
   void ptCallback (const geometry_msgs::PointStamped::ConstPtr& msg)
   {
+    ROS_INFO("go to call back");
     geometry_msgs::PointStamped ptinarm;
     try
     {
+      ros::Time now = ros::Time::now();
+       listener_.waitForTransform("/camera_depth_optical_frame", "arm",
+                              now, ros::Duration(3.0));
       listener_.transformPoint("arm", *msg, ptinarm);
         //ROS_INFO("try get cloud.");
     }
@@ -42,10 +46,11 @@ public:
     }
 
 // Do something with cloud.
+    ROS_INFO("go to publish");
     geometry_msgs::Vector3 v3;
-    v3.x=ptinarm.point.x;
-    v3.y=ptinarm.point.y;
-    v3.z=ptinarm.point.z;
+    v3.x=ptinarm.point.y*100;
+    v3.y=ptinarm.point.x*100;
+    v3.z=ptinarm.point.z*100;
 
 
     point_pub_.publish(v3);

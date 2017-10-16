@@ -14,9 +14,13 @@
   <node pkg="ras_group8_transform" type="armtrans" name="ras_group8_arm_transform" output="screen">
     <rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
   </node>
-  # <node pkg="ras_group8_transform" type="scan2cloud" name="ras_scan_data_cloud" output="screen">
-  # 	<rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
-  # </node>
+   <node pkg="ras_group8_transform" type="scan2cloud" name="ras_scan_data_cloud" output="screen">
+   	<rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
+   </node>
+   <node pkg="ras_group8_transform" type="Obj2Arm" name="ras_obj_to_arm" output="screen">
+    <rosparam command="load" file="$(find ras_group8_transform)/config/default.yaml" />
+   </node>
+
 
 
 
